@@ -1,0 +1,35 @@
+
+name: Gerar Crop.exe para Windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Crop.py'
+      - '.github/workflows/gerar-crop.yml'
+
+jobs:
+  compilar:
+    runs-on: windows-latest
+
+    steps:
+      - name: Obter arquivos
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: python -m pip install --upgrade pip pillow pyinstaller
+
+      - name: Criar executavel
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name Crop Crop.py
+
+      - name: Disponibilizar executavel
+        uses: actions/upload-artifact@v4
+        with:
+          name: Crop-Windows
+          path: dist/Crop.exe
+          if-no-files-found: error
