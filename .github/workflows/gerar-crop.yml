@@ -25,7 +25,7 @@ jobs:
         run: python -m pip install --upgrade pip pillow pyinstaller
 
       - name: Criar executavel
-        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name Crop Crop.py
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name Crop Crop2.py
 
       - name: Disponibilizar executavel
         uses: actions/upload-artifact@v4
